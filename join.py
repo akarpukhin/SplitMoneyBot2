@@ -5,6 +5,17 @@ import botdb
 
 
 def join(bot, update):
+    user_name = '{last_name} {first_name}'.format(
+                last_name=update.message.from_user.last_name,
+                first_name=update.message.from_user.first_name)
+    telegram_id = update.message.from_user.id
+    user = User.query.filter(User.telegram_id == telegram_id).first()
+
+    if user is None:
+        user = botdb.User(telegram_id=telegram_id, user_name=user_name)
+        botdb.db_session.add(user)
+        botdb.db_session.commit()
+
     keyboard = [['Событие'], ['Цель']]
     choice_keyboard = ReplyKeyboardMarkup(keyboard)
     bot.send_message(
@@ -68,18 +79,8 @@ def join_goal(bot, update):
                                 goal_name=goal_name,
                                 chat_id=update.message.chat.id).first()
 
-    user_name = '{last_name} {first_name}'.format(
-                last_name=update.message.from_user.last_name,
-                first_name=update.message.from_user.first_name)
-
     telegram_id = update.message.from_user.id
-
     user = User.query.filter(User.telegram_id == telegram_id).first()
-
-    if user is None:
-            user = botdb.User(telegram_id=telegram_id, user_name=user_name)
-            botdb.db_session.add(user)
-            botdb.db_session.commit()
 
     goal.users.append(user)
     botdb.db_session.commit()

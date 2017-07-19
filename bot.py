@@ -19,18 +19,17 @@ if not os.path.exists(configs.LOG_FILE):
     os.mkdir(os.path.dirname(configs.LOG_FILE))
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                    level=logging.ERROR,
+                    level=logging.INFO,
                     filename=configs.LOG_FILE
                     )
 
 
-def start_bot(bot, update):
-    mytext = "Привет {}! Спасибо, что добавили меня!".format(update.message.chat.first_name)
-    logging.info('Пользователь {} нажал /start'.format(update.message.chat.first_name))
-    update.message.reply_text(mytext)
-
-
 def start(bot, update):
+
+    logging.info('Пользователь {} {} нажал /start'.format(
+        update.message.from_user.last_name, update.message.from_user.first_name)
+    )
+
     bot.sendMessage(update.message.chat_id, text="Привет! \n Я - SplitMoneyBot! \n\n"
                                                  "Бот, который поможет вам следить"
                                                  "за тратами в поездках\r\n"
