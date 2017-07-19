@@ -4,7 +4,7 @@ Bot can helps you to collect money to any goal.
 Invate him in Chat and ask him to help.
 
 # Installation:
-1. git clone https://github.com/akarpukhin/SplitMoneyBot
+1. git clone https://github.com/akarpukhin/SplitMoneyBot2
 2. cd SplitMoneyBot
 3. pip install -r requirements.txt
 
