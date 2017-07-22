@@ -11,7 +11,7 @@ def join(bot, update):
     telegram_id = update.message.from_user.id
     user = User.query.filter(User.telegram_id == telegram_id).first()
 
-    if user is None:
+    if not user:
         user = botdb.User(telegram_id=telegram_id, user_name=user_name)
         botdb.db_session.add(user)
         botdb.db_session.commit()
@@ -26,7 +26,6 @@ def join(bot, update):
 
 
 def choose_goal(bot, update):
-    # choice = update.message.text  не помню зачем добавлял, если не вспомню, удалю
 
     telegram_id = update.message.from_user.id
 
